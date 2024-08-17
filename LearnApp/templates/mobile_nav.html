@@ -1,0 +1,21 @@
+<!-- Mobile Navigation (nur auf Mobilgeräten anzeigen) -->
+<nav class="navbar fixed-bottom navbar-light bg-light d-block d-md-none">
+    <div class="container d-flex justify-content-around">
+        <a href="{% url 'dashboard' %}" class="nav-link text-center">
+            <i class="fas fa-home"></i><br>
+            <span>Dashboard</span>
+        </a>
+        <a href="{% url 'courses' %}" class="nav-link text-center">
+            <i class="fas fa-book"></i><br>
+            <span>Kurse</span>
+        </a>
+        <a href="{% url 'profile' %}" class="nav-link text-center">
+            <i class="fas fa-user"></i><br>
+            <span>Profil</span>
+        </a>
+        <a href="{% url 'settings' %}" class="nav-link text-center">
+            <i class="fas fa-cog"></i><br>
+            <span>Einstellungen</span>
+        </a>
+    </div>
+</nav>

@@ -1,0 +1,14 @@
+/* Mobile Navigation Anpassungen */
+.navbar.fixed-bottom {
+    padding: 0.5rem;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link {
+    font-size: 0.9rem;
+    color: #4e73df; /* Bootstrap Primary */
+}
+
+.navbar .nav-link:hover {
+    color: #2e59d9;
+}
