@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4hvis0z!824l7v)*8$1mgeg$9&ns9u4lz4m23bf-95+1+%qr%8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.178.59']
 
 
 # Application definition
@@ -107,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Replace User Model
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -123,10 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'LearnApp/static/'
+STATIC_URL = ('static/')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'LearnApp/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type

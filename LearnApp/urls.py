@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('courses.urls')),  # Ersetze "your_app" durch die App, die deine Views enthält
+    path('accounts/', include('django.contrib.auth.urls')),  # Fügt die Login/Logout-URLs von Django hinzu
+    path('', include('courses.urls')),  # Deine zentrale App
+    path('register/', register, name='register'),
+
 ]
+

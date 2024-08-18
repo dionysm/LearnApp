@@ -8,4 +8,8 @@ urlpatterns = [
     path('tests/', views.tests, name='tests'),
     path('profile/', views.profile, name='profile'),
     path('settings/', views.settings, name='settings'),
+    path('<int:id>/', views.kurs_detail, name='kurs_detail'),  # Detailseite für Kurse
+
 ]
+
+

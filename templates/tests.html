@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Tests Übersicht{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Tests</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    {% for test in tests %}
+    <!-- Test Card -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            {{ test.name }}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Erstellt am: {{ test.erstellt_am|date:"d.m.Y" }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'test_starten' test.id %}" class="btn btn-info btn-sm">Test starten</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ kurs.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ kurs.name }}</h1>
+    <p>{{ kurs.beschreibung }}</p>
+
+    {% if eingeschrieben %}
+    <div class="alert alert-info">
+        Du bist bereits in diesem Kurs eingeschrieben.
+    </div>
+    {% else %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Für diesen Kurs einschreiben</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

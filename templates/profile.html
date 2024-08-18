@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Profil</h1>
+</div>
+
+<div class="row">
+    <!-- Profil Informationen -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <!-- Avatar Anzeige -->
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" class="img-fluid rounded-circle mb-3" alt="Avatar" style="width: 150px;">
+                {% else %}
+                    <img src="" class="img-fluid rounded-circle mb-3" alt="Avatar" style="width: 150px;">
+                {% endif %}
+
+                <h5>{{ user.username }}</h5>
+                <p class="text-muted">{{ user.email }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profil Bearbeiten -->
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Avatar ändern -->
+                    <div class="form-group">
+                        <label for="avatar">Avatar ändern</label>
+                        <input type="file" name="avatar" class="form-control-file" id="avatar">
+                    </div>
+
+                    <!-- Benutzername -->
+                    <div class="form-group">
+                        <label for="username">Benutzername</label>
+                        <input type="text" name="username" value="{{ user.username }}" class="form-control" id="username">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">E-Mail-Adresse</label>
+                        <input type="email" name="email" value="{{ user.email }}" class="form-control" id="email">
+                    </div>
+
+                    <!-- Weitere Profilinformationen (falls vorhanden) -->
+                    <!-- Füge hier weitere Felder hinzu, falls du zusätzliche Profilinformationen speichern möchtest -->
+
+                    <!-- Profil speichern Button -->
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Profil speichern</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

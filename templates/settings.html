@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Einstellungen{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Einstellungen</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Theme Einstellungen -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h5 class="font-weight-bold">Theme</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="theme">Wähle dein Theme</label>
+                        <select id="theme" name="theme" class="form-control">
+                            <option value="light" {% if user.theme == 'light' %}selected{% endif %}>Light Mode</option>
+                            <option value="dark" {% if user.theme == 'dark' %}selected{% endif %}>Dark Mode</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benachrichtigungseinstellungen -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h5 class="font-weight-bold">Benachrichtigungen</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="notifications" name="notifications" {% if user.notifications_enabled %}checked{% endif %}>
+                        <label class="form-check-label" for="notifications">
+                            E-Mail-Benachrichtigungen aktivieren
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Speichern</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Lernmodus{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Lernmodus</h1>
+</div>
+
+<!-- Lernmodus Card -->
+<div class="row justify-content-center">
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <!-- Frage -->
+                <div id="frage-container">
+                    <h5 class="font-weight-bold">Frage:</h5>
+                    <p id="frage-text">{{ frage.fragen_text }}</p>
+                </div>
+
+                <!-- Antwort (versteckt und dann angezeigt) -->
+                <div id="antwort-container" style="display: none;">
+                    <h5 class="font-weight-bold">Antwort:</h5>
+                    <p id="antwort-text">{{ frage.antwort_text }}</p>
+                </div>
+
+                <!-- Buttons zum Anzeigen der Antwort und Bewertung -->
+                <div class="text-center mt-4">
+                    <button id="zeige-antwort" class="btn btn-primary">Antwort anzeigen</button>
+                </div>
+
+                <div id="bewertungs-container" class="mt-4 text-center" style="display: none;">
+                    <h6>Wie gut konntest du diese Frage beantworten?</h6>
+                    <button class="btn btn-success mx-2">Einfach</button>
+                    <button class="btn btn-warning mx-2">Geht so</button>
+                    <button class="btn btn-danger mx-2">Schwierig</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="row justify-content-center">
+    <div class="col-lg-8 text-center">
+        <button id="naechste-frage" class="btn btn-secondary" style="display: none;">Nächste Frage</button>
+    </div>
+</div>
+
+{% endblock %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const zeigeAntwortButton = document.getElementById("zeige-antwort");
+    const antwortContainer = document.getElementById("antwort-container");
+    const bewertungsContainer = document.getElementById("bewertungs-container");
+    const naechsteFrageButton = document.getElementById("naechste-frage");
+
+    zeigeAntwortButton.addEventListener("click", function() {
+        antwortContainer.style.display = "block";
+        zeigeAntwortButton.style.display = "none";
+        bewertungsContainer.style.display = "block";
+    });
+
+    // Beispiel für die Bewertung und zum Weiternavigieren
+    document.querySelectorAll("#bewertungs-container button").forEach(function(button) {
+        button.addEventListener("click", function() {
+            bewertungsContainer.style.display = "none";
+            naechsteFrageButton.style.display = "inline-block";
+        });
+    });
+
+    // Beispiel, wie du zur nächsten Frage navigieren kannst (hier noch ohne Funktion)
+    naechsteFrageButton.addEventListener("click", function() {
+        window.location.href = "{% url 'lernmodus' %}?next=true"; // Beispiel, wie du zur nächsten Frage navigieren könntest
+    });
+});
+</script>
