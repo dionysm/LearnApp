@@ -3,7 +3,6 @@
 {% block title %}Lernmodus{% endblock %}
 
 {% block content %}
-
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Lernmodus</h1>
@@ -17,13 +16,13 @@
                 <!-- Frage -->
                 <div id="frage-container">
                     <h5 class="font-weight-bold">Frage:</h5>
-                    <p id="frage-text">{{ frage.fragen_text }}</p>
+                    <p id="frage-text">{{ frage.fragen_text }} VORDERSEITE</p>
                 </div>
 
                 <!-- Antwort (versteckt und dann angezeigt) -->
                 <div id="antwort-container" style="display: none;">
                     <h5 class="font-weight-bold">Antwort:</h5>
-                    <p id="antwort-text">{{ frage.antwort_text }}</p>
+                    <p id="antwort-text">{{ frage.antwort_text }} RÜCKSEITE</p>
                 </div>
 
                 <!-- Buttons zum Anzeigen der Antwort und Bewertung -->
@@ -51,30 +50,35 @@
 
 {% endblock %}
 
+{% block extra_js %}
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const zeigeAntwortButton = document.getElementById("zeige-antwort");
-    const antwortContainer = document.getElementById("antwort-container");
-    const bewertungsContainer = document.getElementById("bewertungs-container");
-    const naechsteFrageButton = document.getElementById("naechste-frage");
+    console.log("Lernmodus");
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOM fully loaded and parsed");
+        const zeigeAntwortButton = document.getElementById("zeige-antwort");
+        const antwortContainer = document.getElementById("antwort-container");
+        const bewertungsContainer = document.getElementById("bewertungs-container");
+        const naechsteFrageButton = document.getElementById("naechste-frage");
 
-    zeigeAntwortButton.addEventListener("click", function() {
-        antwortContainer.style.display = "block";
-        zeigeAntwortButton.style.display = "none";
-        bewertungsContainer.style.display = "block";
-    });
+        zeigeAntwortButton.addEventListener("click", function() {
+            console.log("Zeige Antwort");
+            antwortContainer.style.display = "block";
+            zeigeAntwortButton.style.display = "none";
+            bewertungsContainer.style.display = "block";
+        });
 
-    // Beispiel für die Bewertung und zum Weiternavigieren
-    document.querySelectorAll("#bewertungs-container button").forEach(function(button) {
-        button.addEventListener("click", function() {
-            bewertungsContainer.style.display = "none";
-            naechsteFrageButton.style.display = "inline-block";
+        // Beispiel für die Bewertung und zum Weiternavigieren
+        document.querySelectorAll("#bewertungs-container button").forEach(function(button) {
+            button.addEventListener("click", function() {
+                bewertungsContainer.style.display = "none";
+                naechsteFrageButton.style.display = "inline-block";
+            });
+        });
+
+        // Beispiel, wie du zur nächsten Frage navigieren kannst (hier noch ohne Funktion)
+        naechsteFrageButton.addEventListener("click", function() {
+            window.location.href = "{% url 'learning_mode' %}?next=true"; // Beispiel, wie du zur nächsten Frage navigieren könntest
         });
     });
-
-    // Beispiel, wie du zur nächsten Frage navigieren kannst (hier noch ohne Funktion)
-    naechsteFrageButton.addEventListener("click", function() {
-        window.location.href = "{% url 'lernmodus' %}?next=true"; // Beispiel, wie du zur nächsten Frage navigieren könntest
-    });
-});
 </script>
+{% endblock %}

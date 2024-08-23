@@ -3,12 +3,12 @@ from django.contrib.auth import login
 from .forms import CustomUserCreationForm
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')
+            return redirect("home")
     else:
-        form = CustomUserCreationForm()  # Hier wird das angepasste Formular verwendet
-    return render(request, 'registration/register.html', {'form': form})
+        form = CustomUserCreationForm()
+    return render(request, "users/register.html", {"form": form})

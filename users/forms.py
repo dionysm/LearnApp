@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+# Richtiges Modell verwenden
+User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
@@ -10,39 +13,34 @@ class CustomUserCreationForm(UserCreationForm):
     }))
 
     class Meta:
-        model = User
+        model = User  # Hier das richtige Modell verwenden
         fields = ('username', 'email', 'password1', 'password2')
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'class': 'form-control',
-                'data-toggle': 'tooltip',
-                'title': 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
-            }),
-            'email': forms.EmailInput(attrs={  # Hier wird das Widget für das E-Mail-Feld definiert
-                'class': 'form-control',
-                'data-toggle': 'tooltip',
-                'title': 'Enter a valid email address.'
-            }),
-            'password1': forms.PasswordInput(attrs={
-                'class': 'form-control',
-                'data-toggle': 'tooltip',
-                'title': (
-                    'Your password can’t be too similar to your other personal information.\n'
-                    'Your password must contain at least 8 characters.\n'
-                    'Your password can’t be a commonly used password.\n'
-                    'Your password can’t be entirely numeric.'
-                )
-            }),
-            'password2': forms.PasswordInput(attrs={
-                'class': 'form-control',
-                'data-toggle': 'tooltip',
-                'title': 'Enter the same password as before, for verification.'
-            }),
-        }
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Explizite Zuweisung der Klasse für jedes Feld
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'data-toggle': 'tooltip',
+            'title': 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
+        })
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'data-toggle': 'tooltip',
+            'title': 'Enter a valid email address.'
+        })
+        self.fields['password1'].widget.attrs.update({
+            'class': 'form-control',
+            'data-toggle': 'tooltip',
+            'title': (
+                'Your password can’t be too similar to your other personal information.\n'
+                'Your password must contain at least 8 characters.\n'
+                'Your password can’t be a commonly used password.\n'
+                'Your password can’t be entirely numeric.'
+            )
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'form-control',
+            'data-toggle': 'tooltip',
+            'title': 'Enter the same password as before, for verification.'
+        })

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Lernmodus{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Lernmodus</h1>
+</div>
+
+<!-- Lernmodus Card -->
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <h6 class="h6 mb-4 text-gray-800">Wähle einen oder mehrere Bereiche aus, die du lernen möchtest:</h6>
+    </div>
+
+    <!-- Iteration durch eingeschriebene Kurse -->
+    {% for einschreibung in eingeschriebene_kurse %}
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-book"></i> Lernfelder für {{ einschreibung.kurs.name }}: </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for lernfeld in einschreibung.kurs.lernfelder.all %}
+                    <div class="col-sm">
+                        <a href="#" class="btn btn-light">
+                            <span class="text">{{ lernfeld.name }}</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Themenbereiche -->
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-list-check"></i> Themenbereiche:</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for thema in themenbereiche %}
+                    <div class="col-lg-3">
+                        <a href="#" class="btn btn-light">
+                            <span class="text">{{ thema.name }}</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Button -->
+    <div class="col-sm-12 text-center">
+        <button type="button" class="btn btn-primary">Start</button>
+    </div>
+</div>
+{% endblock %}
